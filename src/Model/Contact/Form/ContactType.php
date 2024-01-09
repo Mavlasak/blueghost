@@ -16,22 +16,27 @@ class ContactType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Jméno',
                 'required' => true,
+                'attr' => ['maxlength' => 40]
             ])
             ->add('surname', TextType::class, [
                 'label' => 'Příjmení',
                 'required' => true,
+                'attr' => ['maxlength' => 40]
             ])
             ->add('phone', TextType::class, [
                 'label' => 'Telefonní číslo',
                 'required' => false,
+                'attr' => ['maxlength' => 40]
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'required' => true,
+                'attr' => ['maxlength' => 40]
             ])
             ->add('note', TextareaType::class, [
                 'label' => 'Poznámka',
                 'required' => false,
+                'attr' => ['maxlength' => 10000]
             ]);
     }
 }
