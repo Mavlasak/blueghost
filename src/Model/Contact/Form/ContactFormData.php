@@ -13,7 +13,7 @@ class ContactFormData
 
     public function toEntity(): Contact
     {
-        return new Contact($this->getName(), $this->getSurname(), $this->getPhone(), $this->getEmail(), $this->getPhone());
+        return new Contact($this->getName(), $this->getSurname(), $this->getPhone(), $this->getEmail(), $this->getNote());
     }
 
     public function getName()
