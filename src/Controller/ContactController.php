@@ -39,6 +39,7 @@ class ContactController extends AbstractController
             try {
                 $this->contactService->create($contactFormData->toEntity());
                 $this->addFlash('success', 'Kontakt byl úspěšně přidán.');
+                return $this->redirectToRoute('contacts');
             } catch (NameAlreadyExistsException $exception) {
                 $this->addFlash('danger', 'Jméno již existuje.');
             }

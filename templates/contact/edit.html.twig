@@ -12,4 +12,8 @@
     {{ form_end(form) }}
 
     <a href="{{ path('contact_delete', {id: contact.id}) }}">Smazat</a>
+
+    <a href="{{ path('contacts') }}">
+        Zpět
+    </a>
 {% endblock %}

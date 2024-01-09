@@ -21,8 +21,7 @@ final class ContactService
 
     public function create(Contact $contact): void
     {
-        $slug = $this->slugger->slug($contact->getName() . '-' . $contact->getSurname());
-        $slug = strtolower($slug->toString());
+        $slug = strtolower($this->slugger->slug($contact->getName() . '-' . $contact->getSurname())->toString());
         $slugExist = $this->contactRepository->slugExist($slug);
         if ($slugExist) {
             throw new NameAlreadyExistsException();
@@ -33,8 +32,7 @@ final class ContactService
 
     public function update(Contact $contact): string
     {
-        $slug = $this->slugger->slug($contact->getName() . '-' . $contact->getSurname());
-        $slug = strtolower($slug->toString());
+        $slug = strtolower($this->slugger->slug($contact->getName() . '-' . $contact->getSurname())->toString());
         $slugExist = $this->contactRepository->slugExist($slug, $contact->getId());
         if ($slugExist) {
             throw new NameAlreadyExistsException();
