@@ -20,9 +20,9 @@ class ContactController extends AbstractController
     }
 
     #[Route('/', name: 'contacts')]
-    public function indexAction(): Response
+    public function indexAction(Request $request): Response
     {
-        $contacts = $this->contactService->findAll();
+        $contacts = $this->contactService->findAll($request->query->getInt('page', 1));
 
         return $this->render('contact/index.html.twig', [
             'contacts' => $contacts,

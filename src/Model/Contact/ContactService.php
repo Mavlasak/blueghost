@@ -4,13 +4,18 @@ namespace App\Model\Contact;
 
 use App\Entity\Contact;
 use App\Model\Contact\Exception\NameAlreadyExistsException;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 final class ContactService
 {
+    private const PAGINATOR_COUNT = 5;
+
     public function __construct(
         private readonly ContactRepository $contactRepository,
         private readonly SluggerInterface $slugger,
+        private readonly PaginatorInterface $paginator,
     ) {
     }
 
@@ -50,8 +55,12 @@ final class ContactService
         $this->contactRepository->remove($contact);
     }
 
-    public function findAll(): array
+    public function findAll(int $page = 1): PaginationInterface
     {
-        return $this->contactRepository->findAll();
+        return $this->paginator->paginate(
+            $this->contactRepository->findAll(),
+            $page,
+            self::PAGINATOR_COUNT
+        );
     }
 }
