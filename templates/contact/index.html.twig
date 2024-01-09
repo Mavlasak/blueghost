@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Akce</th>
+            <th>Jméno</th>
+            <th>Příjmení</th>
+            <th>Telefon</th>
+            <th>Email</th>
+            <th>Poznámka</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for contact in contacts %}
+            <tr>
+                <td>
+                    <a href="{{ path('contact_detail', {'slug': contact.slug }) }}">Upravit</a>
+                </td>
+                <td>{{ contact.name }}</td>
+                <td>{{ contact.surname }}</td>
+                <td>{{ contact.phone }}</td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.note }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %}Blueghost{% endblock %}</title>
+</head>
+<body>
+{% block main %}
+    <div class="container-fluid">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endfor %}
+
+        {% block body %}{% endblock %}
+    </div>
+    {% block javascripts %}{% endblock %}
+{% endblock %}
+</body>
+</html>
