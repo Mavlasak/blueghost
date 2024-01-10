@@ -29,16 +29,17 @@ class Contact
     #[ORM\Column(name: 'slug', type: Types::STRING, nullable: false)]
     private string $slug;
 
-    #[ORM\Column(name: 'note', type: Types::TEXT, nullable: false)]
+    #[ORM\Column(name: 'note', type: Types::TEXT, nullable: true)]
     private ?string $note;
 
-    public function __construct(string $name, string $surname, ?string $phone, string $email, ?string $note)
+    public function __construct(string $name, string $surname, ?string $phone, string $email, ?string $note, string $slug)
     {
         $this->name = $name;
         $this->surname = $surname;
         $this->phone = $phone;
         $this->email = $email;
         $this->note = $note;
+        $this->slug = $slug;
     }
 
     public function getName(): string
@@ -76,7 +77,7 @@ class Contact
         return $this->note;
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

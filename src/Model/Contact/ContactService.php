@@ -4,6 +4,7 @@ namespace App\Model\Contact;
 
 use App\Entity\Contact;
 use App\Model\Contact\Exception\NameAlreadyExistsException;
+use App\Model\Contact\Form\ContactFormData;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -19,24 +20,26 @@ final class ContactService
     ) {
     }
 
-    public function create(Contact $contact): void
+    public function create(ContactFormData $contactFormData): void
     {
-        $slug = strtolower($this->slugger->slug($contact->getName() . '-' . $contact->getSurname())->toString());
-        $slugExist = $this->contactRepository->slugExist($slug);
+        $slug = strtolower($this->slugger->slug($contactFormData->getName() . '-' . $contactFormData->getSurname())->toString());
+        $this->slugExistException($slug, null);
+        $contact = $contactFormData->toEntity($slug);
+        $this->save($contact);
+    }
+
+    private function slugExistException(string $slug, ?int $id): void
+    {
+        $slugExist = $this->contactRepository->slugExist($slug, $id);
         if ($slugExist) {
             throw new NameAlreadyExistsException();
         }
-        $contact->setSlug($slug);
-        $this->save($contact);
     }
 
     public function update(Contact $contact): string
     {
         $slug = strtolower($this->slugger->slug($contact->getName() . '-' . $contact->getSurname())->toString());
-        $slugExist = $this->contactRepository->slugExist($slug, $contact->getId());
-        if ($slugExist) {
-            throw new NameAlreadyExistsException();
-        }
+        $this->slugExistException($slug, $contact->getId());
         $contact->setSlug($slug);
         $this->save($contact);
 

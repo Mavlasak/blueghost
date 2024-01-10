@@ -7,13 +7,13 @@ class ContactFormData
 {
     private string $name;
     private string $surname;
-    private ?string $phone;
+    private ?string $phone = null;
     private string $email;
-    private ?string $note;
+    private ?string $note = null;
 
-    public function toEntity(): Contact
+    public function toEntity(string $slug): Contact
     {
-        return new Contact($this->getName(), $this->getSurname(), $this->getPhone(), $this->getEmail(), $this->getNote());
+        return new Contact($this->getName(), $this->getSurname(), $this->getPhone(), $this->getEmail(), $this->getNote(), $slug);
     }
 
     public function getName()
