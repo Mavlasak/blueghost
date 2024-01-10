@@ -75,7 +75,6 @@ class ContactType extends AbstractType
                 'constraints' => new Length([
                     'maxMessage' => 'Maximální délka je 10000 znaků',
                     'max' => 40,
-                    'min' => 0,
                 ]),
                 'attr' => ['maxlength' => 10000]
             ]);
