@@ -26,7 +26,7 @@ class ContactType extends AbstractType
                 ]),
                 'attr' => [
                     'maxlength' => 40,
-                    //'minlength' => 3.
+                    'minlength' => 3.
                 ],
             ])
             ->add('surname', TextType::class, [
