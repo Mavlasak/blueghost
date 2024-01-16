@@ -8,6 +8,7 @@
         {{ form_row(form.phone) }}
         {{ form_row(form.email) }}
         {{ form_row(form.note) }}
+        <input type="number" id="tentacles" name="tentacles" min="10" max="100" />
         <input type="submit" value="Přiřadit" class="btn btn-success" />
     {{ form_end(form) }}
     <a href="{{ path('contacts') }}">

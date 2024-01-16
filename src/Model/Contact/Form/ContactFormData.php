@@ -11,6 +11,8 @@ class ContactFormData
     private string $email;
     private ?string $note = null;
 
+    private string $params;
+
     public function toEntity(string $slug): Contact
     {
         return new Contact($this->getName(), $this->getSurname(), $this->getPhone(), $this->getEmail(), $this->getNote(), $slug);
@@ -64,5 +66,15 @@ class ContactFormData
     public function setNote($note)
     {
         $this->note = $note;
+    }
+
+    public function getParams(): string
+    {
+        return $this->params;
+    }
+
+    public function setParams(string $params): void
+    {
+        $this->params = $params;
     }
 }

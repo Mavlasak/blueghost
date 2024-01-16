@@ -3,10 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Entity\ParameterValue;
+use App\Entity\ProductParameter;
 use App\Model\Contact\ContactService;
 use App\Model\Contact\Exception\NameAlreadyExistsException;
 use App\Model\Contact\Form\ContactFormData;
 use App\Model\Contact\Form\ContactType;
+use App\Model\ParameterRepository;
+use App\Model\ProductParameterRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,13 +19,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class ContactController extends AbstractController
 {
     public function __construct(
-        private readonly ContactService $contactService
+        private readonly ContactService $contactService,
+        private readonly ParameterRepository $parameterRepository,
+        private readonly ProductParameterRepository $productParameterRepository,
     ) {
     }
 
-    #[Route('/', name: 'contacts')]
-    public function indexAction(Request $request): Response
+    #[Route('/{parameterValue}', name: 'contacts')]
+    public function indexAction(ParameterValue $parameterValue, Request $request): Response
     {
+        //dd($this->parameterRepository->xxx3($parameterValue));
+        $productParameter = $this->productParameterRepository->xxx2($parameterValue);
+        dd(array_map(fn(ProductParameter $productParameter)=> $productParameter->getId(),$productParameter));
+
+        dd($this->parameterRepository->xxx());
         $contacts = $this->contactService->findAll($request->query->getInt('page', 1));
 
         return $this->render('contact/index.html.twig', [
